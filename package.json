@@ -1,0 +1,112 @@
+{
+  "name": "dogclap",
+  "displayName": "DogClap",
+  "description": "Your code failed. The dog noticed. A fun dog that blames you whenever a command fails.",
+  "publisher": "meyt",
+  "version": "0.0.5",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "build",
+    "dog",
+    "meme",
+    "celebration",
+    "fun"
+  ],
+  "icon": "media/icon.png",
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "dogclap.preview",
+        "title": "DogClap: Preview Celebration"
+      }
+    ],
+    "configuration": {
+      "title": "DogClap",
+      "properties": {
+        "dogclap.enabledCommands": {
+          "type": "array",
+          "scope": "resource",
+          "default": [
+            "all"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "Commands that trigger the dog after a successful run. `[\"*\"]` keeps the built-in build and run detection. Add `all` to match every terminal command (e.g. `curl`, `ls`). Add entries such as `npm`, `python`, `node`, `executable`, `tasks` or `debug`. An empty list disables celebrations."
+        },
+        "dogclap.triggerOn": {
+          "type": "string",
+          "enum": [
+            "success",
+            "failure",
+            "both"
+          ],
+          "default": "failure",
+          "markdownDescription": "When to show the dog: after commands that succeed (exit code 0), fail (non-zero exit code), or both. Applies to terminal commands, tasks and debug sessions."
+        },
+        "dogclap.failureGifPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to a GIF/PNG/SVG shown on failure. Empty falls back to `dogclap.gifPath`."
+        },
+        "dogclap.failureSoundPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to a `.wav` played on failure. Empty falls back to `dogclap.soundPath`."
+        },
+        "dogclap.gifPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to a custom GIF/PNG/SVG shown on success. Empty uses the bundled `media/dogclap.gif`."
+        },
+        "dogclap.soundPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to a custom `.wav` sound (WAV works on every OS). Empty uses the bundled `media/dogclap.wav`."
+        },
+        "dogclap.position": {
+          "type": "string",
+          "enum": [
+            "bottom-right",
+            "top-center"
+          ],
+          "default": "bottom-right",
+          "description": "Where the dog appears in the editor."
+        },
+        "dogclap.bottomOffsetPx": {
+          "type": "number",
+          "default": 40,
+          "description": "Distance in pixels from the last visible line when the position is bottom-right. Increase it if the dog is cut off at the bottom."
+        },
+        "dogclap.sizePx": {
+          "type": "number",
+          "default": 60,
+          "markdownDescription": "Width and height of the animation in pixels."
+        },
+        "dogclap.durationMs": {
+          "type": "number",
+          "default": 3200,
+          "markdownDescription": "How long the animation stays visible, in milliseconds."
+        },
+        "dogclap.playSound": {
+          "type": "boolean",
+          "default": true,
+          "description": "Play the sound together with the animation."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "npx @vscode/vsce package"
+  }
+}
